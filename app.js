@@ -41,7 +41,7 @@ mongoose.connect(
 );
 
 mongoose.connection.on('error', err => {
-  console.error(err);
+  console.log(err);
   console.log(
     '%s MongoDB connection error. Please make sure MongoDB is running.',
     chalk.red('✗')
@@ -60,13 +60,13 @@ app.engine(
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(expressStatusMonitor());
-app.use(
-  cors({
-    origin: process.env.CORS_ALLOW_ORIGIN || '*',
-    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  })
-);
+// app.use(
+//   cors({
+//     origin: process.env.CORS_ALLOW_ORIGIN || '*',
+//     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+//   })
+// );
 
 app.use(compression());
 app.use(
@@ -116,13 +116,6 @@ app.use(
 app.disable('x-powered-by');
 
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-app.use(
-  '/webfonts',
-  express.static(
-    path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'),
-    { maxAge: 31557600000 }
-  )
-);
 app.get('/dynamic_key', apiController.getDynamicKey);
 app.get('/recording_key', apiController.getRecordingKey);
 app.get('/', homeController.index);
