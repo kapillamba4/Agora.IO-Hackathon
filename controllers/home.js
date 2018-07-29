@@ -3,3 +3,9 @@ exports.index = (req, res) => {
     title: 'Home'
   });
 };
+
+exports.dashboard = (req, res) => {
+  res.render('dashboard', {
+    title: 'Dashboard'
+  });
+}

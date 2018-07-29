@@ -1,8 +1,9 @@
-// const AgoraRTC = require(path.resolve('./public/js/AgoraRTCSDK-2.3.1.js'));
 const {
   generateMediaChannelKey,
   generateRecordingKey
 } = require('../node_modules/agora-dynamic-key/nodejs/src/DynamicKey5.js');
+
+const Question = require('../models/Question');
 
 exports.getDynamicKey = (req, res) => {
   const { channelName } = req.query;
@@ -23,7 +24,6 @@ exports.getDynamicKey = (req, res) => {
     rnd
   );
 
-  // return res.json({ 'key': key }).send();
   return res.send(key);
 };
 
@@ -46,6 +46,24 @@ exports.getRecordingKey = (req, res) => {
     rnd
   );
 
-  // return res.json({ 'key': key }).send();
   return res.send(key);
+};
+
+exports.addQuestion = (req, res, next) => {
+  const question = new Question({
+    email: req.user.email,
+    question: req.body.question,
+    possibleAnswers: [req.body.answer]
+  });
+
+  question.save(err => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+  });
+};
+
+exports.editQuestion = (req, res) => {
+  
 };

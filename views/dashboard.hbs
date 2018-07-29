@@ -6,9 +6,9 @@
     </head>
     <body>
         {{> header }}
-        <form action="/register" method="post" >
-            <input type="text" name="email" />
-            <input type="text" name="password" />
+        <form action="/question/add" method="post">
+            <input type="text" name="question" />
+            <input type="text" name="answer" />
             <input type="submit" value="Submit" />
         </form>
     </body>

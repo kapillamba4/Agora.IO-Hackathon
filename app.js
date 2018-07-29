@@ -32,6 +32,9 @@ try {
 const apiController = require('./controllers/api');
 const homeController = require('./controllers/home');
 const interviewController = require('./controllers/interview');
+const authController = require('./controllers/auth');
+
+const passport = require('./config/passport');
 
 mongoose.connect(
   process.env.MONGODB_URI,
@@ -100,7 +103,7 @@ app.use(
 
 app.use(
   lusca({
-    csrf: true,
+    csrf: false,
     xframe: 'SAMEORIGIN',
     hsts: {
       maxAge: 31536000,
@@ -114,12 +117,24 @@ app.use(
 );
 
 app.disable('x-powered-by');
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.get('/dynamic_key', apiController.getDynamicKey);
 app.get('/recording_key', apiController.getRecordingKey);
-app.get('/', homeController.index);
+app.get('/dashboard', homeController.dashboard);
 app.get('/interview', interviewController.index);
+app.get('/login', authController.getLoginPage);
+app.get('/register', authController.getSignupPage);
+app.all('/logout', authController.logout);
+app.post('/login', authController.postLoginData, (req, res) => {
+    res.redirect('/dashboard');
+  }
+);
+app.post('/register', authController.postSignupData, (req, res) => {
+  res.redirect('/dashboard');
+});
+app.get('/', homeController.index);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler());
