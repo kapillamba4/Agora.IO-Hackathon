@@ -6,6 +6,12 @@ html, body {
     font-family: 'Open Sans', sans-serif;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #video {
     float: right;
     margin: 20px auto;
@@ -25,12 +31,56 @@ html, body {
     justify-content: center;
     height: 60px;
     box-shadow: 0 0 4px #868686;
+    background: #fcfcfc;
+    .app-name {
+        cursor: pointer;
+    }
     .navbar-container {
         display: flex;
+        justify-content: space-between;
         max-width: 1220px;
         align-items: center;
         font-size: 20px;
         margin-left: 64px;
         margin-right: 64px;
+    }
+}
+
+ul, ol {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+ul > li {
+    padding-left: 12px;
+    box-shadow: 0 1px 2px hsla(0,0%,4%,.1);
+}
+
+ol > li {
+    padding-left: 12px;
+}
+
+.form-wrapper {
+    margin: 24px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    box-shadow: 0 2px 3px hsla(0,0%,4%,.1),0 0 0 1px hsla(0,0%,4%,.1);
+    background: #fcfcfc;
+    > input {
+        margin: 12px;
+    }
+    > .form-heading {
+        height: 45px;
+        color: #4a4a4a;
+        display: flex;
+        padding: 0 12px;
+        margin-bottom: 24px;
+        align-items: center;
+        box-shadow: 0 1px 2px hsla(0,0%,4%,.1);
     }
 }

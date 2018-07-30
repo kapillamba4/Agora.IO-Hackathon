@@ -23,6 +23,7 @@
     "express-session": "^1.15.6",
     "express-status-monitor": "^1.1.5",
     "lusca": "^1.6.0",
+    "moment": "^2.22.2",
     "mongoose": "^5.2.5",
     "morgan": "^1.9.0",
     "node-sass": "^4.9.2",

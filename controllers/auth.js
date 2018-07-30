@@ -21,22 +21,27 @@ exports.postLoginData = (req, res, next) => {
       return res.redirect('/login');
     }
 
-    req.logIn((user, err) => {
+    req.logIn(user, err => {
       if (err) {
+        console.log(err);
         return next(err);
       }
 
-      res.redirect(req.session.returnTo || '/');
+      res.redirect('/dashboard');
     });
   })(req, res, next);
 };
 
-exports.logout = (req, res) => {
+exports.logout = (req, res, next) => {
   req.logout();
   req.session.destroy(err => {
-    if (err) console.log('Error : Failed to destroy the session during logout.', err);
+    if (err) {
+      console.log('Failed to destroy the session during logout.', err);
+      next(err);
+    }
+
     req.user = null;
-    res.redirect('/');
+    res.redirect('/login');
   });
 };
 
@@ -58,7 +63,7 @@ exports.postSignupData = (req, res, next) => {
     }
 
     if (existingUser) {
-      return res.redirect('/signup');
+      return res.redirect('/register');
     }
 
     const user = new User({

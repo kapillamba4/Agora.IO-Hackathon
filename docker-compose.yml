@@ -1,18 +1,19 @@
 version: '3'
 services:
   mongo:
-    image: mongo:3.6
+    image: mongo:4.1
   web:
-    build: .
+    build: 
+      context: .
+      dockerfile: DockerFile
     ports:
      - "8080:8080"
     environment:
-     - MONGODB_URI=mongodb://mongo:27017/test 
+     - MONGODB_URI=mongodb://mongo:27017/AgoraDB 
     links:
      - mongo 
     depends_on: 
      - mongo 
     volumes:
-     - .:/starter
-     - /starter/node_modules
-
+     - .:/app
+     - /app/node_modules

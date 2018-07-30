@@ -4,11 +4,9 @@
         <link href="/css/main.css" rel="stylesheet" />
     </head>
     <body>
-        {{> header }}
-        <form onsubmit="doLogin">
-            <input type="text" name="email" />
-            <input type="text" name="password" />
-            <input type="submit" name="submit-btn" />
-        </form>
+        {{> header this}}
+        {{#each interviews}}
+            {{this.questions}}
+        {{/each}}
     </body>
 </html>

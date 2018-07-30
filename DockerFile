@@ -1,15 +1,21 @@
-FROM node:8-slim
+FROM timbru31/java-node:slim
 
-WORKDIR /starter
+WORKDIR /app
 ENV NODE_ENV development
+ENV JNI_PATH /usr/lib/jvm/java-8-openjdk-amd64/include
+COPY package.json .
+RUN yarn install --production
 
-COPY package.json /starter/package.json
+RUN apt-get update && \
+    apt-get install -y g++ make && \
+    apt-get install -y openjdk-8-jdk
 
-RUN npm install --production
+COPY . .
+RUN (cd ./Agora_Recording_SDK_for_Linux_FULL/samples/java/; ./build.sh build)
+RUN cp ./Agora_Recording_SDK_for_Linux_FULL/samples/cpp/recorder_local ./
+RUN cp ./Agora_Recording_SDK_for_Linux_FULL/bin ./
+RUN rm -rf Agora_Recording_SDK_for_Linux_FULL
 
-COPY .env.example /starter/.env.example
-COPY . /starter
-
-CMD ["npm","start"]
+CMD ["yarn", "start"]
 
 EXPOSE 8080

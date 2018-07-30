@@ -1,7 +1,23 @@
 <nav id="navbar" class="is-fluid" style="display: flex;">
     <div class="navbar-container is-fluid">
-        <div class="navbar-brand">
-            Agora Interview App
-        </div>
+        <span onclick="window.location.href='/'" class="app-name">Agora Interview App</span>
+        <span>
+            {{#if email}}
+                <span class="user-email">{{email}}</span>
+                <a href="/logout">
+                    <input type="button" value="Logout"></input>
+                </a>
+            {{/if}}
+            {{#equal title "Login"}}
+                <a href="/register">
+                    <input type="button" value="Go to Sign Up"></input>
+                </a>
+            {{/equal}}
+            {{#equal title "Sign Up"}}
+                <a href="/login">
+                    <input type="button" value="Go to Login"></input>
+                </a>
+            {{/equal}}
+        </span>
     </div>
 </nav>

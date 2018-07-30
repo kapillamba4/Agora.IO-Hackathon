@@ -5,10 +5,11 @@
         <script src="/libs/axios.min.js"></script>
     </head>
     <body>
-        {{> header }}
-        <form action="/register" method="post" >
-            <input type="text" name="email" />
-            <input type="text" name="password" />
+        {{> header this}}
+        <form class="form-wrapper" action="/register" method="post" >
+            <div class="form-heading">{{title}}</div>
+            <input type="text" placeholder="Email" name="email" />
+            <input type="text" placeholder="Password" name="password" />
             <input type="submit" value="Submit" />
         </form>
     </body>

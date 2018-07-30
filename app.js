@@ -33,7 +33,7 @@ const apiController = require('./controllers/api');
 const homeController = require('./controllers/home');
 const interviewController = require('./controllers/interview');
 const authController = require('./controllers/auth');
-
+const middlewares = require('./middlewares');
 const passport = require('./config/passport');
 
 mongoose.connect(
@@ -53,6 +53,18 @@ mongoose.connection.on('error', err => {
 });
 
 app.set('port', process.env.PORT || 8080);
+
+hbs.registerHelper('equal', function(lvalue, rvalue, options) {
+  if (arguments.length < 3) {
+    throw new Error('Handlebars Helper equal needs 2 parameters');
+  }
+  if (lvalue != rvalue) {
+    return options.inverse(this);
+  } else {
+    return options.fn(this);
+  }
+});
+
 app.engine(
   'hbs',
   hbs.express4({
@@ -122,30 +134,25 @@ app.use(passport.session());
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.get('/dynamic_key', apiController.getDynamicKey);
 app.get('/recording_key', apiController.getRecordingKey);
-app.get('/dashboard', homeController.dashboard);
+app.get('/dashboard', middlewares.checkAuthenticated, homeController.dashboard);
 app.get('/interview', interviewController.index);
 app.get('/login', authController.getLoginPage);
 app.get('/register', authController.getSignupPage);
 app.all('/logout', authController.logout);
-app.post('/login', authController.postLoginData, (req, res) => {
-    res.redirect('/dashboard');
-  }
-);
-app.post('/register', authController.postSignupData, (req, res) => {
-  res.redirect('/dashboard');
-});
-app.get('/', homeController.index);
-
+app.post('/login', authController.postLoginData);
+app.post('/register', authController.postSignupData);
+app.get('/', middlewares.checkAuthenticated, homeController.index);
+app.post('/question/create', middlewares.checkAuthenticated, apiController.createQuestion);
+app.post('/question/update', middlewares.checkAuthenticated, apiController.updateQuestion);
+app.post('/question/delete', middlewares.checkAuthenticated, apiController.deleteQuestion);
+app.post('/interview/create', middlewares.checkAuthenticated, apiController.createInterview);
 if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler());
 }
 
 app.listen(app.get('port'), () => {
   console.log(
-    '%s App is running at http://localhost:%d in %s mode',
-    chalk.green('✓'),
-    app.get('port'),
-    app.get('env')
+    `${chalk.green('✓')} App is running at http://localhost:${app.get('port')} in ${app.get('env')} mode`    
   );
   console.log('  Press CTRL-C to stop\n');
 });
