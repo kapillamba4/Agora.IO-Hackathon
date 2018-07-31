@@ -13,8 +13,9 @@ RUN apt-get update && \
 COPY . .
 RUN (cd ./Agora_Recording_SDK_for_Linux_FULL/samples/java/; ./build.sh build)
 RUN cp ./Agora_Recording_SDK_for_Linux_FULL/samples/cpp/recorder_local ./
-RUN cp ./Agora_Recording_SDK_for_Linux_FULL/bin ./
+RUN cp -r ./Agora_Recording_SDK_for_Linux_FULL/bin ./
 RUN rm -rf Agora_Recording_SDK_for_Linux_FULL
+RUN ./recorder_local; exit 0
 
 CMD ["yarn", "start"]
 

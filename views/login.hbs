@@ -3,14 +3,31 @@
         <title>{{title}}</title>
         <link href="/css/main.css" rel="stylesheet" />
         <script src="/libs/axios.min.js"></script>
+        <script src="/libs/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
     </head>
     <body>
         {{> header this}}
         <form class="form-wrapper" action="/login" method="post">
             <div class="form-heading">{{title}}</div>
-            <input type="text" placeholder="Email" name="email" />
-            <input type="text" placeholder="Password" name="password" />
-            <input type="submit" value="Submit" />
+            <div class="alert alert-secondary" role="alert">
+                You need to sign in or sign up before continuing.
+            </div>
+            <div class="alert alert-info" role="alert">
+                Email: example@mail.com<br/>
+                Password: pass
+            </div>
+            <input type="text" class="form-control email-input" placeholder="Email" name="email" />
+            <input type="text" class="form-control password-input" placeholder="Password" name="password" />
+            <div class="form-btn-set">
+                <input type="submit" class="form-control btn btn-primary btn-sm" value="Submit" />
+                <a class="btn btn-block btn-social btn-google">
+                    <span class="fa fa-twitter"></span> Sign in with Google
+                </a>
+            </div>
         </form>
     </body>
 </html>

@@ -1,22 +1,22 @@
 <nav id="navbar" class="is-fluid" style="display: flex;">
     <div class="navbar-container is-fluid">
-        <span onclick="window.location.href='/'" class="app-name">Agora Interview App</span>
+        <span onclick="window.location.href='/'" class="app-name">Agora Virtual AI Interviewer</span>
         <span>
             {{#if email}}
                 <span class="user-email">{{email}}</span>
-                <a href="/logout">
-                    <input type="button" value="Logout"></input>
-                </a>
+                {{#equal title "Home"}}
+                    <a href="/dashboard" class="btn btn-primary btn-sm" role="button">Dashboard</a>
+                {{/equal}}
+                {{#equal title "Dashboard"}}
+                    <a href="/" class="btn btn-primary btn-sm" role="button">Home</a>                    
+                {{/equal}}
+                <a href="/logout" class="btn btn-primary btn-sm" role="button">Logout</a>
             {{/if}}
             {{#equal title "Login"}}
-                <a href="/register">
-                    <input type="button" value="Go to Sign Up"></input>
-                </a>
+                <a href="/register" class="btn btn-primary btn-sm" role="button">Go to Sign Up</a>
             {{/equal}}
             {{#equal title "Sign Up"}}
-                <a href="/login">
-                    <input type="button" value="Go to Login"></input>
-                </a>
+                <a href="/login" class="btn btn-primary btn-sm" role="button">Go to Login</a>
             {{/equal}}
         </span>
     </div>

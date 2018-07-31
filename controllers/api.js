@@ -1,52 +1,60 @@
-const {
-  generateMediaChannelKey,
-  generateRecordingKey
-} = require('../node_modules/agora-dynamic-key/nodejs/src/DynamicKey5.js');
-
 const Question = require('../models/Question');
 const Interview = require('../models/Interview');
 
-exports.getDynamicKey = (req, res) => {
-  const { channelName } = req.query;
-  if (!channelName) {
+const { spawn } = require('child_process');
+const {
+  startRecording,
+  createDynamicKey,
+  createRecordingKey,
+  spawnAgoraProcess
+} = require('../utils');
+
+exports.getDynamicKey = async (req, res) => {
+  if (!req.body.channelName) {
     return res
       .status(400)
       .json({ error: 'channel name is required' })
       .send();
   }
 
-  const ts = Math.round(new Date().getTime() / 1000);
-  const rnd = Math.round(Math.random() * 100000000);
-  const key = generateMediaChannelKey(
-    process.env.APP_ID,
-    process.env.APP_CERTIFICATE,
-    channelName,
-    ts,
-    rnd
-  );
+  if (!req.body.uid) {
+    return res
+      .status(400)
+      .json({ error: 'uid is required' })
+      .send();
+  }
 
+  const interview = await Interview.findOne({
+    uid
+  }).exec();
+
+  if (!interview) {
+    return res
+      .status(404)
+      .json({ error: 'uid is not valid' })
+      .send();
+  }
+
+  if (interview.isDone) {
+    return res
+      .status(404)
+      .json({ error: 'Interview is already completed' })
+      .send();
+  }
+
+  const key = createDynamicKey(req.body);
   return res.send(key);
 };
 
 exports.getRecordingKey = (req, res) => {
-  const { channelName } = req.query;
-  if (!channelName) {
+  if (!req.body.channelName) {
     return res
       .status(400)
       .json({ error: 'channel name is required' })
       .send();
   }
 
-  const ts = Math.round(new Date().getTime() / 1000);
-  const rnd = Math.round(Math.random() * 100000000);
-  const key = generateRecordingKey(
-    process.env.APP_ID,
-    process.env.APP_CERTIFICATE,
-    channelName,
-    ts,
-    rnd
-  );
-
+  const key = createRecordingKey(req.body);
   return res.send(key);
 };
 
@@ -96,10 +104,10 @@ exports.deleteQuestion = (req, res, next) => {
 exports.createInterview = (req, res, next) => {
   const interview = new Interview({
     email: req.user.email,
-    questions: req.body.questions || []
+    questions: (req.body.questions || []).map(q => ({ text: q }))
   });
 
-  interview.room = parseInt(interview._id, 16).toLocaleString('fullwide', {
+  interview.uid = parseInt(interview._id, 16).toLocaleString('fullwide', {
     useGrouping: false
   });
 
@@ -116,20 +124,19 @@ exports.createInterview = (req, res, next) => {
 exports.fetchNextQuestion = async (req, res, next) => {
   try {
     const interview = await Interview.findOne({
-      room: req.body.room
+      uid: req.body.uid
     }).exec();
-
-    // if (new Date().getTime() - interview.lastQuesTimestamp < 300000) { // less than 5 min
-    //   return res.status().json({
-    //     message: `try again in x minutes`,
-
-    //   });
-    // }
 
     const unreadQuestions = interview.questions.filter(question => !question.read);
     const readQuestions = interview.questions.filter(question => question.read);
 
-    if (unreadQuestions.length == 0) {
+    if (!!readQuestions.length) {
+      if (!process.env.RECORDING_DIRECTORY) {
+        spawnAgoraProcess();
+      }
+    }
+
+    if (!!unreadQuestions.length) {
       await interview.update({
         isActive: false,
         isDone: true

@@ -17,6 +17,8 @@ const fs = require('fs');
 
 const app = express();
 
+const { startRecording, startRecording2, spawnAgoraProcess } = require('./utils');
+
 try {
   const stats = fs.statSync('.env');
   console.log('File exists');
@@ -131,7 +133,7 @@ app.use(
 app.disable('x-powered-by');
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use('/', express.static(path.join(__dirname, 'public')));
 app.get('/dynamic_key', apiController.getDynamicKey);
 app.get('/recording_key', apiController.getRecordingKey);
 app.get('/dashboard', middlewares.checkAuthenticated, homeController.dashboard);
@@ -142,17 +144,38 @@ app.all('/logout', authController.logout);
 app.post('/login', authController.postLoginData);
 app.post('/register', authController.postSignupData);
 app.get('/', middlewares.checkAuthenticated, homeController.index);
-app.post('/question/create', middlewares.checkAuthenticated, apiController.createQuestion);
-app.post('/question/update', middlewares.checkAuthenticated, apiController.updateQuestion);
-app.post('/question/delete', middlewares.checkAuthenticated, apiController.deleteQuestion);
-app.post('/interview/create', middlewares.checkAuthenticated, apiController.createInterview);
+app.post(
+  '/question/create',
+  middlewares.checkAuthenticated,
+  apiController.createQuestion
+);
+app.post(
+  '/question/update',
+  middlewares.checkAuthenticated,
+  apiController.updateQuestion
+);
+app.post(
+  '/question/delete',
+  middlewares.checkAuthenticated,
+  apiController.deleteQuestion
+);
+app.get('/interview/next', apiController.fetchNextQuestion);
+app.post(
+  '/interview/create',
+  middlewares.checkAuthenticated,
+  apiController.createInterview
+);
 if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler());
 }
 
+spawnAgoraProcess();
+
 app.listen(app.get('port'), () => {
   console.log(
-    `${chalk.green('✓')} App is running at http://localhost:${app.get('port')} in ${app.get('env')} mode`    
+    `${chalk.green('✓')} App is running at http://localhost:${app.get(
+      'port'
+    )} in ${app.get('env')} mode`
   );
   console.log('  Press CTRL-C to stop\n');
 });

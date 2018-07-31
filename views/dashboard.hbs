@@ -18,7 +18,7 @@
             {{#each questions}}
                 <li>
                     <span>Question: {{this.question}}</span>
-                    <input type="checkbox" name="questions[]" value={{this.question}} />
+                    <input type="checkbox" name="questions[]" value="{{this.question}}" />
                     <div>Answers: </div>
                     <ol>
                     {{#each this.possibleAnswers}}

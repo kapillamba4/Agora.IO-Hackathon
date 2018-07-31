@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css");
 html, body {
   margin: 0;
   padding: 0;
@@ -7,14 +8,16 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+  background: linear-gradient(90deg, white 0%, #e5e5f7 0%, #dfe9eb 100%); }
 
 #video {
-  float: right;
-  margin: 20px auto; }
+  margin: 0 20px; }
   #video #agora_local {
-    width: 200px;
-    height: 200px; }
+    width: calc(50vw - 50px);
+    height: 72vh;
+    background: #4a4a4a;
+    margin: 24px; }
 
 .is-fluid {
   display: flex;
@@ -56,11 +59,22 @@ ol > li {
   max-width: 500px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 80%;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   background: #fcfcfc; }
   .form-wrapper > input {
-    margin: 12px; }
+    margin: 12px;
+    max-width: 460px; }
+  .form-wrapper .form-control.btn.btn-primary {
+    max-width: 120px; }
+  .form-wrapper .btn-social.btn-google {
+    max-width: 220px; }
+  .form-wrapper .form-btn-set {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; }
   .form-wrapper > .form-heading {
     height: 45px;
     color: #4a4a4a;
@@ -68,4 +82,89 @@ ol > li {
     padding: 0 12px;
     margin-bottom: 24px;
     align-items: center;
+    width: 100%;
     box-shadow: 0 1px 2px rgba(10, 10, 10, 0.1); }
+  .form-wrapper > .alert {
+    width: 90%; }
+
+.card {
+  width: 350px;
+  box-shadow: 1px 1px 3px #888;
+  min-height: 450px;
+  margin: 12px;
+  border-radius: 6px;
+  overflow-y: auto;
+  cursor: pointer; }
+  .card:hover {
+    box-shadow: 2px 2px 6px #888; }
+  .card > .card-heading {
+    background: #fcfcfc;
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.1);
+    padding: 12px; }
+  .card .interview-url {
+    white-space: pre-wrap;
+    margin: 12px;
+    word-wrap: break-word; }
+  .card .interview-ques, .card .interview-questions-label, .card .interview-url-label {
+    margin: 12px; }
+  .card .interview-questions-label, .card .interview-url-label {
+    font-weight: 800; }
+  .card .questions-list > li {
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(10, 10, 10, 0.1); }
+  .card span {
+    margin: 12px; }
+
+.cards-wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap; }
+
+.interview-wrapper {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%); }
+
+.chat {
+  margin: 24px;
+  width: calc(50vw - 50px);
+  height: 72vh;
+  background: #fafafa; }
+  .chat .chat-header {
+    padding: 12px;
+    background: #eee;
+    border-bottom: 2px solid #dddddd;
+    color: #666; }
+    .chat .chat-header > span {
+      float: right; }
+  .chat .message-thread {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; }
+    .chat .message-thread .chat-bubble-wrapper {
+      display: flex;
+      align-items: center; }
+    .chat .message-thread .chat-bubble {
+      max-width: calc(100% - 40px);
+      padding: 3px;
+      margin: 3px;
+      border-radius: 3px;
+      min-height: 24px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      border: 2px solid black; }
+  .chat .chat-composer {
+    padding: 12px;
+    position: relative;
+    width: calc(50vw - 50px);
+    bottom: -57vh;
+    background: #eee;
+    border-bottom: 2px solid #dddddd;
+    color: #666; }
+    .chat .chat-composer .ans-btn {
+      float: right; }

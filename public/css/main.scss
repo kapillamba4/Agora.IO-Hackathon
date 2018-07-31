@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css');
 
 html, body {
     margin: 0;
@@ -10,14 +11,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(229,229,247,1) 0%, rgba(223,233,235,1) 100%);
 }
 
 #video {
-    float: right;
-    margin: 20px auto;
+    margin: 0 20px;
     #agora_local {
-        width: 200px;
-        height: 200px;
+        width: calc(50vw - 50px);
+        height: 72vh;
+        background: #4a4a4a;
+        margin: 24px;    
     }
 }
 
@@ -68,11 +71,25 @@ ol > li {
     max-width: 500px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 80%;
     box-shadow: 0 2px 3px hsla(0,0%,4%,.1),0 0 0 1px hsla(0,0%,4%,.1);
     background: #fcfcfc;
     > input {
         margin: 12px;
+        max-width: 460px;
+    }
+    .form-control.btn.btn-primary {
+        max-width: 120px;
+    }
+    .btn-social.btn-google {
+        max-width: 220px;
+    }
+    .form-btn-set {
+        width: 100%;
+        padding: 20px; 
+        display: flex;
+        justify-content: space-between;
     }
     > .form-heading {
         height: 45px;
@@ -81,6 +98,113 @@ ol > li {
         padding: 0 12px;
         margin-bottom: 24px;
         align-items: center;
+        width: 100%;
         box-shadow: 0 1px 2px hsla(0,0%,4%,.1);
+    }
+    > .alert {
+        width: 90%;
+    }
+}
+
+.card {
+    width: 350px;
+    box-shadow: 1px 1px 3px #888;
+    min-height: 450px;
+    margin: 12px;
+    border-radius: 6px;
+    overflow-y: auto;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 2px 2px 6px #888;
+    }
+    > .card-heading {
+        background: #fcfcfc;
+        box-shadow: 0 1px 2px hsla(0,0%,4%,.1);
+        padding: 12px;
+    }
+    .interview-url {
+        white-space: pre-wrap;
+        margin: 12px;
+        word-wrap: break-word;
+    }
+    .interview-ques, .interview-questions-label, .interview-url-label {
+        margin: 12px;
+    }
+    .interview-questions-label, .interview-url-label {
+        font-weight: 800;
+    }
+    .questions-list {
+        > li {
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px hsla(0,0%,4%,.1);
+        }
+    }
+    span {
+        margin: 12px;
+
+    }
+}
+
+.cards-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.interview-wrapper {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.chat {
+    margin: 24px;
+    width: calc(50vw - 50px);
+    height: 72vh;
+    background: #fafafa;
+    .chat-header {
+        padding: 12px;
+        background: #eee;
+        border-bottom: 2px solid #dddddd;
+        color: #666;
+        > span {
+            float: right;
+        }
+    }
+    .message-thread {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        .chat-bubble-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .chat-bubble {
+            max-width: calc(100% - 40px);
+            padding: 3px;
+            margin: 3px;
+            border-radius: 3px;
+            min-height: 24px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: 2px solid black;
+        }
+    }
+    .chat-composer {
+        padding: 12px;
+        position: relative;
+        width: calc(50vw - 50px);
+        bottom: -57vh;
+        background: #eee;
+        border-bottom: 2px solid #dddddd;
+        color: #666;
+        .ans-btn {
+            float: right;
+        }
     }
 }

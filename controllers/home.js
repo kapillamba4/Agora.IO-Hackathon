@@ -10,6 +10,7 @@ exports.index = async (req, res) => {
     res.render('home', {
       title: 'Home',
       email: req.user.email,
+      appId: process.env.APP_ID,
       interviews
     });
   } catch (err) {

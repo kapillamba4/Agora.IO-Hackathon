@@ -5,8 +5,28 @@
     </head>
     <body>
         {{> header this}}
+        <div class="cards-wrapper">
         {{#each interviews}}
-            {{this.questions}}
+            <div class="card">
+                <div class="card-heading">ID: {{this.room}}</div>
+                <div class="interview-url-label">URL to start the test:</div>
+                <pre class="interview-url">/interview?channelName={{this.room}}&amp;appId={{@root.appId}}</pre>
+                {{#equal this.isDone true}}
+                    <spam>class="interview"</spam;
+                    <span>Interview is completed ✓</span>
+                {{/equal}}
+                {{#equal this.isDone false}}
+                    <span class="interview">Interview is yet to be completed ✗</span>
+                {{/equal}}
+
+                <div class="interview-questions-label">Questions:</div>
+                <ul class="questions-list">
+                    {{#each this.questions}}
+                        <li class="interview-ques">{{@index}}: {{this.text}}</li>
+                    {{/each}}
+                </ul>
+            </div>
         {{/each}}
+        </div>
     </body>
 </html>

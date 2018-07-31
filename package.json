@@ -22,6 +22,7 @@
     "express-hbs": "^1.0.4",
     "express-session": "^1.15.6",
     "express-status-monitor": "^1.1.5",
+    "font-awesome": "^4.7.0",
     "lusca": "^1.6.0",
     "moment": "^2.22.2",
     "mongoose": "^5.2.5",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
+    "pre-commit": "^1.2.2",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-chai-friendly": "^0.4.1",
@@ -43,6 +45,9 @@
     "eslint-plugin-prettier": "^2.6.2",
     "prettier": "^1.13.7"
   },
+  "pre-commit": [
+    "format"
+  ],
   "engines": {
     "node": ">=8.11.3"
   }

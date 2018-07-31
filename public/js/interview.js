@@ -8,7 +8,7 @@ const url = new URL(window.location.href);
 
 const appId = url.searchParams.get('appId');
 const channelName = url.searchParams.get('channelName');
-let uid = null;
+const uid = url.searchParams.get('uid');
 let channelKey = null;
 
 const client = AgoraRTC.createClient({ mode: 'h264_interop' });
@@ -109,7 +109,7 @@ function unpublish() {
 }
 
 axios
-  .get(`/dynamic_key?channelName=${channelName}&appId=${appId}`)
+  .get(`/dynamic_key?channelName=${channelName}&appId=${appId}&uid=${uid}`)
   .then(function({ data: dataChannelKey }) {
     channelKey = dataChannelKey;
     client.join(
@@ -117,7 +117,6 @@ axios
       channelName,
       uid,
       function(data) {
-        uid = data;
         const localStream = AgoraRTC.createStream({
           streamID: uid,
           video: true,
@@ -159,3 +158,16 @@ axios
   .catch(function(err) {
     console.log('AgoraRTC client init failed', err);
   });
+
+function pushMessage(message) {
+  $('.message-thread')
+    .append(`<div class="chat-bubble-wrapper"><img src='/assets/Chat-Bot-Icon@512px.svg' height="24" width="24" />
+              !default;<pre class="chat-bubble">${message}</pre>
+            </div>`);
+}
+
+$('.skp-btn').click(() => {
+  axios.get('/interview/next').then();
+});
+
+$('.ans-btn').click(() => {});
