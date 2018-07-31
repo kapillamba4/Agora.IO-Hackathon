@@ -12,7 +12,7 @@
     <body>
         {{> header this}}
         <form class="form-wrapper" action="/register" method="post" >
-            <div class="form-heading">{{title}}</div>
+            <div class="form-heading">{{title}}<span style="margin-left: auto;">Hiring Manager</span></div>
             <div class="alert alert-secondary" role="alert">
                 You need to sign in or sign up before continuing.
             </div>
@@ -23,7 +23,7 @@
             <input type="text" class="form-control email-input" placeholder="Email" name="email" />
             <input type="text" class="form-control password-input" placeholder="Password" name="password" />
             <div class="form-btn-set">
-                <input type="submit" class="form-control btn btn-primary btn-sm" value="Submit" />
+                <input type="submit" class="form-control btn btn-primary btn-sm" value="{{title}}" />
                 <a class="btn btn-block btn-social btn-google">
                     <span class="fa fa-twitter"></span> Sign in with Google
                 </a>

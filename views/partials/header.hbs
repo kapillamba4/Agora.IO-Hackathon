@@ -3,20 +3,24 @@
         <span onclick="window.location.href='/'" class="app-name">Agora Virtual AI Interviewer</span>
         <span>
             {{#if email}}
-                <span class="user-email">{{email}}</span>
+                <span class="alert alert-primary user-email">Logged in as {{email}}</span>
                 {{#equal title "Home"}}
-                    <a href="/dashboard" class="btn btn-primary btn-sm" role="button">Dashboard</a>
+                    <a href="/dashboard" class="btn btn-primary" role="button">Dashboard</a>
                 {{/equal}}
                 {{#equal title "Dashboard"}}
-                    <a href="/" class="btn btn-primary btn-sm" role="button">Home</a>                    
+                    <a href="/" class="btn btn-primary" role="button">Home</a>                    
                 {{/equal}}
-                <a href="/logout" class="btn btn-primary btn-sm" role="button">Logout</a>
+                <a href="/logout" class="btn btn-primary" role="button">Logout</a>
+            {{else}}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#goToInterview">
+                    
+                </button>
             {{/if}}
             {{#equal title "Login"}}
-                <a href="/register" class="btn btn-primary btn-sm" role="button">Go to Sign Up</a>
+                <a href="/register" class="btn btn-primary" role="button">Go to Sign Up</a>
             {{/equal}}
             {{#equal title "Sign Up"}}
-                <a href="/login" class="btn btn-primary btn-sm" role="button">Go to Login</a>
+                <a href="/login" class="btn btn-primary" role="button">Go to Login</a>
             {{/equal}}
         </span>
     </div>

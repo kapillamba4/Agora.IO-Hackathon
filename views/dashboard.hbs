@@ -4,22 +4,29 @@
         <link href="/css/main.css" rel="stylesheet" />
         <script src="/libs/axios.min.js"></script>
         <script src="/libs/jquery.min.js"></script>
+        <script src="/js/dashboard.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
     </head>
     <body>
         {{> header this}}
         <form class="form-wrapper" action="/question/create" method="post">
             <div class="form-heading">Add new Question</div>
-            <input type="text" placeholder="Question" name="question" />
-            <input type="text" placeholder="Answer" name="answer" />
-            <input type="submit" value="Submit" />
+            <input type="text" placeholder="Question" class="form-control" name="question" />
+            <input type="text" placeholder="Answer" class="form-control" name="answer" />
+            <input type="submit" class="form-control btn btn-dark btn-sm submit-q-btn" value="Submit" />
         </form>
         <form class="form-wrapper" action="/interview/create" method="post">
-            <ul>
+            <div class="form-heading">Select Questions<span id="selection-count" style="margin-left: auto;"> Questions Selected</span></div>
+            <ul class="question-list">
             {{#each questions}}
-                <li>
-                    <span>Question: {{this.question}}</span>
-                    <input type="checkbox" name="questions[]" value="{{this.question}}" />
-                    <div>Answers: </div>
+                <li class="question-list-item">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="questions[]" onchange="handleCheckboxChange(this);" value="{{this.question}}" class="custom-control-input" id="customCheck{{@index}}">
+                        <label class="custom-control-label" for="customCheck{{@index}}">Question: {{this.question}}</label>
+                    </div>
                     <ol>
                     {{#each this.possibleAnswers}}
                         <li>{{this}}</li>    
@@ -28,8 +35,10 @@
                 </li>
             {{/each}}
             </ul>
-            <input type="submit" value="Submit" value="Create Interview" />
-            <input type="submit" formaction="/question/delete" value="Delete Selected" />
+            <div class="form-btn-set">
+                <input type="submit" class="form-control btn btn-dark btn-sm" value="Submit" value="Create Interview" />
+                <input type="submit" class="form-control btn btn-dark btn-sm" formaction="/question/delete" value="Delete Selected" />
+            </div>
         </form>
     </body>
 </html>

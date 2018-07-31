@@ -164,3 +164,8 @@ exports.fetchNextQuestion = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getInterviewVideo = (req, res) => {
+  // TODO
+  res.sendFile();
+}

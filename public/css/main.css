@@ -39,6 +39,12 @@ body {
     font-size: 20px;
     margin-left: 64px;
     margin-right: 64px; }
+    #navbar .navbar-container .alert {
+      margin-bottom: 1px;
+      height: 30px;
+      line-height: 30px;
+      padding: 7px 15px;
+      top: 2px; }
 
 ul, ol {
   margin: 0; }
@@ -61,12 +67,19 @@ ol > li {
   flex-direction: column;
   align-items: center;
   width: 80%;
+  border-radius: 3px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   background: #fcfcfc; }
+  .form-wrapper .submit-q-btn {
+    float: left;
+    margin-left: 19px;
+    margin-right: auto; }
   .form-wrapper > input {
     margin: 12px;
     max-width: 460px; }
   .form-wrapper .form-control.btn.btn-primary {
+    max-width: 120px; }
+  .form-wrapper .form-control.btn.btn-dark {
     max-width: 120px; }
   .form-wrapper .btn-social.btn-google {
     max-width: 220px; }
@@ -86,14 +99,21 @@ ol > li {
     box-shadow: 0 1px 2px rgba(10, 10, 10, 0.1); }
   .form-wrapper > .alert {
     width: 90%; }
+  .form-wrapper .question-list {
+    width: 90%; }
+  .form-wrapper .question-list-item {
+    width: calc(100% - 12px);
+    margin: 6px; }
+    .form-wrapper .question-list-item .custom-control.custom-checkbox {
+      margin-bottom: 3px; }
 
 .card {
   width: 350px;
   box-shadow: 1px 1px 3px #888;
   min-height: 450px;
   margin: 12px;
-  border-radius: 6px;
-  overflow-y: auto;
+  border-radius: 3px;
+  max-height: 600px;
   cursor: pointer; }
   .card:hover {
     box-shadow: 2px 2px 6px #888; }
@@ -104,16 +124,23 @@ ol > li {
   .card .interview-url {
     white-space: pre-wrap;
     margin: 12px;
+    min-height: 100px;
     word-wrap: break-word; }
   .card .interview-ques, .card .interview-questions-label, .card .interview-url-label {
     margin: 12px; }
   .card .interview-questions-label, .card .interview-url-label {
     font-weight: 800; }
-  .card .questions-list > li {
-    min-height: 36px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(10, 10, 10, 0.1); }
+  .card .questions-list {
+    overflow-y: auto; }
+    .card .questions-list > li {
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(10, 10, 10, 0.1); }
+  .card .interview {
+    margin-bottom: 0; }
+  .card .interview-ques {
+    background: #fcfcfc; }
   .card span {
     margin: 12px; }
 
